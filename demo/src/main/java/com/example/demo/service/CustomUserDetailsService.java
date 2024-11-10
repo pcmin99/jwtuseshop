@@ -3,11 +3,13 @@ package com.example.demo.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CustomUserDetails;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.repository.UserRepository;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
