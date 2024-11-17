@@ -1,10 +1,211 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채팅 목록</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .chat-list {
+      margin-bottom: 20px;
+    }
+    .chat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .chat-item:hover {
+      background-color: #f9f9f9;
+    }
+    .chat-item:last-child {
+      border-bottom: none;
+    }
+    .chat-header {
+      font-weight: bold;
+      color: #333;
+    }
+    .chat-message {
+      color: #555;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+    .chat-time {
+      font-size: 12px;
+      color: #999;
+    }
+    .chat-window {
+      display: none;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-top: 20px;
+      height: 300px;
+      overflow-y: auto;
+    }
+    .chat-window.active {
+      display: block;
+    }
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+    }
+    .message.user {
+      background-color: #e0f7fa;
+    }
+    .message.bot {
+      background-color: #ffe0b2;
+    }
+    .input-area {
+      display: flex;
+      margin-top: 10px;
+    }
+    .input-area input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    .input-area button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .input-area button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <h1 th:text="${message}">Hello, World!</h1>
+
+  <div class="chat-container">
+    <h2>채팅 목록</h2>
+
+    <div class="chat-list">
+      <!-- 채팅 목록 -->
+      <div class="chat-item" onclick="openChat(1)">
+        <div>
+          <div class="chat-header">Alice</div>
+          <div class="chat-message">Hey, how are you?</div>
+          <div class="chat-time">2024-11-17 10:00</div>
+        </div>
+      </div>
+
+      <div class="chat-item" onclick="openChat(2)">
+        <div>
+          <div class="chat-header">Bob</div>
+          <div class="chat-message">What's up?</div>
+          <div class="chat-time">2024-11-17 09:30</div>
+        </div>
+      </div>
+
+      <div class="chat-item" onclick="openChat(3)">
+        <div>
+          <div class="chat-header">Charlie</div>
+          <div class="chat-message">Let's catch up soon!</div>
+          <div class="chat-time">2024-11-17 08:45</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 채팅 창 -->
+    <div id="chat-window-1" class="chat-window">
+      <h3>Alice</h3>
+      <div class="message bot">Hey, how are you?</div>
+      <div class="message user">I'm good, thanks! How about you?</div>
+      <div class="input-area">
+        <input type="text" id="message-input-1" placeholder="Type your message..." onkeydown="checkEnter(event, 1)">
+        <button onclick="sendMessage(1)">Send</button>
+      </div>
+    </div>
+
+    <div id="chat-window-2" class="chat-window">
+      <h3>Bob</h3>
+      <div class="message bot">What's up?</div>
+      <div class="message user">Not much, just working. You?</div>
+      <div class="input-area">
+        <input type="text" id="message-input-2" placeholder="Type your message..." onkeydown="checkEnter(event, 2)">
+        <button onclick="sendMessage(2)">Send</button>
+      </div>
+    </div>
+
+    <div id="chat-window-3" class="chat-window">
+      <h3>Charlie</h3>
+      <div class="message bot">Let's catch up soon!</div>
+      <div class="message user">Definitely! Let's plan something.</div>
+      <div class="input-area">
+        <input type="text" id="message-input-3" placeholder="Type your message..." onkeydown="checkEnter(event, 3)">
+        <button onclick="sendMessage(3)">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 채팅 창 열기
+    function openChat(chatId) {
+      // 모든 채팅 창 숨기기
+      const chatWindows = document.querySelectorAll('.chat-window');
+      chatWindows.forEach(window => window.classList.remove('active'));
+
+      // 선택한 채팅 창 열기
+      const chatWindow = document.getElementById('chat-window-' + chatId);
+      chatWindow.classList.add('active');
+    }
+
+    // 메시지 전송
+    function sendMessage(chatId) {
+      const input = document.getElementById('message-input-' + chatId);
+      const message = input.value.trim();
+
+      if (message !== "") {
+        // 메시지 추가
+        const messageContainer = document.createElement('div');
+        messageContainer.classList.add('message', 'user');
+        messageContainer.textContent = message;
+
+        const chatWindow = document.getElementById('chat-window-' + chatId);
+        chatWindow.appendChild(messageContainer);
+
+        // 입력 필드 초기화
+        input.value = '';
+      }
+    }
+
+    // Enter 키로 메시지 전송
+    function checkEnter(event, chatId) {
+      if (event.key === 'Enter') {
+        sendMessage(chatId);
+      }
+    }
+  </script>
+
 </body>
 </html>
