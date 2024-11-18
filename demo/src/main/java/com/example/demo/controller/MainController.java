@@ -40,4 +40,16 @@ public class MainController {
         return "main2";
     }
 
+    @GetMapping("/hello1")
+    public String hello1 (Model model) {
+        model.addAttribute("data", "hello!");
+        return "index";
+    }
+
+    @GetMapping("/hello2")
+    public String hello2 (Model model) {
+        model.addAttribute("data", "hello!");
+        return "template";
+    }
+
 }
