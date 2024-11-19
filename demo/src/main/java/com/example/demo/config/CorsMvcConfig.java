@@ -28,6 +28,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**")
-                .addResourceLocations("classpath:/static/assets/");  // 리소스가 위치한 경로
+                .addResourceLocations("classpath:/static/assets/")  // 리소스가 위치한 경로
+                .setCachePeriod(3600);
     }
 }
