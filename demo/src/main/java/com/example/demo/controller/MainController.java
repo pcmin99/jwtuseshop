@@ -7,10 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
@@ -36,27 +33,32 @@ public class MainController {
 
 
 
-    @GetMapping("/hello") // 채팅 mapping
-    public String hello () {
-        return "main2";
-    }
+    // @GetMapping("/hello") // 채팅 mapping
+    // public String hello () {
+    //     return "main2";
+    // }
 
-    @GetMapping("/hello1") // 관리자 첫 화면 mapping
+    @GetMapping("/index") // 관리자 첫 화면 mapping
     public String hello1 () {
         return "index";
     }
 
 
-    @GetMapping("/admin/tables") // 관리자 테이블 관련 mapping
-    public String tabledashboard(){
-        return "admin/tables";
+    // @GetMapping("/admin/tables") // 관리자 테이블 관련 mapping
+    // public String tabledashboard(){
+    //     return "admin/tables";
+    // }
+
+    @GetMapping("/user/shop-details")
+    public String shopDetail(){
+        return "user/shop-details";
     }
 
 
-    @GetMapping("/admin/notifications") // 관리자 알람 관련 mapping
-    public String tabledashboard1(){
-        return "admin/notifications";
-    }
+    // @GetMapping("/admin/notifications") // 관리자 알람 관련 mapping
+    // public String tabledashboard1(){
+    //     return "admin/notifications";
+    // }
 
 
 

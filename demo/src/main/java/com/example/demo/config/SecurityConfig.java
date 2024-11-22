@@ -77,8 +77,8 @@ public class SecurityConfig {
         http.httpBasic().disable();
 
         http.authorizeHttpRequests()
-        .requestMatchers("/login", "/", "/join", "/hello","/hello1","/hello2","/admin/**","/user/**").permitAll() // 이 경로들은 모두 접근 허용
-        .requestMatchers("/admin/**", "/templates/**").permitAll()
+        .requestMatchers("/login", "/", "/join", "/hello","/hello1","/hello2","/admin/**","/user/**","/index").permitAll() // 이 경로들은 모두 접근 허용
+        .requestMatchers("/assets/**").permitAll()
         //.requestMatchers("/admin").hasRole("ADMIN")  // admin 경로는 ADMIN 권한만 허용
         .anyRequest().authenticated();
         
