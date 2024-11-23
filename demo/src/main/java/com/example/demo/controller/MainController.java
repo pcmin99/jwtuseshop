@@ -49,10 +49,49 @@ public class MainController {
     //     return "admin/tables";
     // }
 
-    @GetMapping("/user/shop-details")
+    @GetMapping("/user/shop-grid")
+    public String shopGrid(){
+
+        return "user/shop-grid";
+    }
+
+
+    @GetMapping("/user/shop-details") // 제품 상세 페이지
     public String shopDetail(){
         return "user/shop-details";
     }
+
+    @GetMapping("/user/shoping-cart") // 장바구니 페이지 
+    public String shopingCart(){
+
+        return "user/shoping-cart";
+    }
+
+    @GetMapping("/user/contact") // 문의 및 정보 등등
+    public String contact(){
+
+        return "user/contact";
+    }
+
+    @GetMapping("/user/checkout") // 제품 주문 ( 배송지 입력, 번호 입력 등등 )
+    public String checkout(){
+
+        return "user/checkout";
+    }
+
+    @GetMapping("/user/blog") // 블로그 리스트 페이지
+    public String blog(){
+
+        return "user/blog";
+    }
+
+    @GetMapping("/user/blog-details") // 블로그 상세 페이지
+    public String blogDetails(){
+
+        return "user/blog-details";
+    }
+
+
 
 
     // @GetMapping("/admin/notifications") // 관리자 알람 관련 mapping
