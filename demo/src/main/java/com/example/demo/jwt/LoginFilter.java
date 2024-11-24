@@ -26,13 +26,15 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
       this.authenticationManager = authenticationManager;
       this.jwtUtil = jwtUtil;
+      
   }
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
-      String username = obtainUsername(request);
-      String password = obtainPassword(request);
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+
 
       UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
 

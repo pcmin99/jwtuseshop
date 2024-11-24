@@ -21,6 +21,7 @@ public class JoinService {
 
     }
 
+    
 
     public void joinProcess(JoinDTO joinDTO){
 

@@ -25,6 +25,17 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         
+
+        String path = request.getRequestURI();
+
+        // 'join' 경로는 JWT 인증을 건너뛰도록 설정
+        if (path.startsWith("/join")) {
+            filterChain.doFilter(request, response);  // JWT 필터를 건너뛰고 요청을 그대로 전달
+            return;
+        }
+    
+
+        
         // Authorization 헤더에서 토큰 추출
         String authorization = request.getHeader("Authorization");
 

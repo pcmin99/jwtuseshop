@@ -16,7 +16,7 @@ public class MainController {
     
 
     @GetMapping("/")
-    public String mainP(){
+    public void mainP(){
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName() ; 
 
@@ -26,9 +26,12 @@ public class MainController {
         Iterator<? extends GrantedAuthority> iter = authorities.iterator();
         GrantedAuthority auth = iter.next();
         String role = auth.getAuthority();
-
-        return "main Controller:" + username + role;
         
+        System.out.println(username);
+        System.out.println(role);
+        
+
+
     }
 
 
@@ -38,7 +41,13 @@ public class MainController {
     //     return "main2";
     // }
 
-    @GetMapping("/index") // 관리자 첫 화면 mapping
+    @GetMapping("/loginandjoin/login")  // 로그인 페이지 로드
+    public String login() {
+        return "loginandjoin/login";
+    }
+
+
+    @GetMapping("/index") // 
     public String hello1 () {
         return "index";
     }
