@@ -16,7 +16,7 @@ public class MainController {
     
 
     @GetMapping("/")
-    public void mainP(){
+    public String mainP(){
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName() ; 
 
@@ -30,8 +30,7 @@ public class MainController {
         System.out.println(username);
         System.out.println(role);
         
-
-
+        return role + "/index" ;
     }
 
 
