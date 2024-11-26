@@ -44,6 +44,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -83,14 +85,20 @@ public class SecurityConfig {
             .anyRequest().authenticated();
                 
             http
-            .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class)  // JWTFilter가 먼저
-            .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);  // LoginFilter가 나중에
+            .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class) 
+            .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
         
         http
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-                        
+        
+        http
+            .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/index")
+            .invalidateHttpSession(true)
+            .deleteCookies("JSESSIONID","JWT_TOKEN");
 
 
         return http.build();

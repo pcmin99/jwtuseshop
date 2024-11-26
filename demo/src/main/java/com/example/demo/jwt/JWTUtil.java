@@ -40,13 +40,17 @@ public class JWTUtil {
                 .get("role", String.class); // role 클레임 추출
     }
     // 토큰 만료 여부를 확인하는 메서드
-    public Boolean isExpired(String token) {
-        Date expiration = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration();   // 토큰 만료 시간 추출
-        return expiration != null && expiration.before(new Date()); // 토큰 만료 시간 확인
+    public boolean isExpired(String token) {
+        try {
+            Date expiration = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getExpiration();
+            return expiration.before(new Date()); // 만료 시간과 현재 시간 비교
+        } catch (Exception e) {
+            return true; // 토큰 파싱 오류 시 만료된 것으로 간주
+        }
     }
 
     // 새로운 Jwt 토큰 생성

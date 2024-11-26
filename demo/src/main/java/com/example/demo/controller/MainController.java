@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -35,13 +36,20 @@ public class MainController {
 
 
 
+    // @PostMapping("/login")
+    // public void login11(){
+
+    // }
+
+
+
     // @GetMapping("/hello") // 채팅 mapping
     // public String hello () {
     //     return "main2";
     // }
 
     @GetMapping("/loginandjoin/login")  // 로그인 페이지 로드
-    public String login() {
+    public String loginPage() {
         return "loginandjoin/login";
     }
 

@@ -34,7 +34,6 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 쿠키에서 JWT 토큰 추출
         String token = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -67,10 +66,9 @@ public class JWTFilter extends OncePerRequestFilter {
         CustomUserDetails customUserDetails = new CustomUserDetails(userEntity);
 
         // 스프링 시큐리티 인증 토큰 생성
-        Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
 
-        // 세션에 사용자 등록
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         filterChain.doFilter(request, response);
     }

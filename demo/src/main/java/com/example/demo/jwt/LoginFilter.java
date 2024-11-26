@@ -58,16 +58,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
       String role = auth.getAuthority();
 
-      String token = jwtUtil.createJwt(username, role, 60*60*10L);
+      String token = jwtUtil.createJwt(username, role, 60*60*1000L*1);
 
-      // JWT를 쿠키에 저장
       Cookie cookie = new Cookie("JWT_TOKEN", token);
-      cookie.setHttpOnly(true);  // 클라이언트에서 자바스크립트로 접근 불가능하도록 설정
-      cookie.setSecure(true);  // HTTPS에서만 전송하도록 설정
-      cookie.setPath("/");  // 해당 경로에서만 쿠키가 전송됨
-      cookie.setMaxAge(60 * 60 * 10); // 쿠키 만료 시간 설정 (10시간)
-
-      // 쿠키를 응답에 추가
+      cookie.setHttpOnly(true); // XSS 보호
+      cookie.setPath("/"); // 모든 경로에 적용
+      cookie.setHttpOnly(true);
+      response.addCookie(cookie);
       response.addCookie(cookie);
 
     // Authorization 헤더에 토큰 추가
@@ -79,10 +76,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
          redirectUrl = "/admin/index";
      }
  
-     // 리다이렉트 URL 클라이언트에 전달
-     response.setContentType("application/json");
-     response.getWriter().write("{\"redirectUrl\": \"" + redirectUrl + "\"}");
-     response.getWriter().flush();
+     response.sendRedirect(redirectUrl);
+ 
   }
 
   @Override
