@@ -27,21 +27,6 @@ public class AdminController {
 
     @GetMapping("/admin/index") // 관리자 첫 화면 mapping
     public String hello1 () {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName() ; 
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        Iterator    <? extends GrantedAuthority> iter = authorities.iterator();
-        GrantedAuthority auth = iter.next();
-        String role = auth.getAuthority();
-        
-        System.out.println(username);
-        System.out.println(role);   
-        
-
-        System.out.println("--------------------------------");
         return "admin/index";
     }
 
