@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.entity.UserEntity;
 
 
-// https://www.youtube.com/watch?v=JFTpzy7gsg0&list=PLJkjrxxiBSFCcOjy0AAVGNtIa08VLk1EJ&index=5
-// 참고 자료 test
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
 
@@ -14,6 +12,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 		
     //username을 받아 DB 테이블에서 회원을 조회하는 메소드 작성
     UserEntity findByUsername(String username);
+
+
 
     
 }

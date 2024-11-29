@@ -2,17 +2,28 @@ package com.example.demo.controller;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.entity.UserEntity;
+import com.example.demo.service.CustomUserDetailsService;
+
 @Controller
 public class AdminController {
+
+
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
     
 
     @GetMapping("/admin")
@@ -32,7 +43,10 @@ public class AdminController {
 
 
     @GetMapping("/admin/tables") // 관리자 테이블 관련 mapping
-    public String tabledashboard(){
+    public String tabledashboard(Model model){
+        List<UserEntity> userList = customUserDetailsService.getAllUsers();
+        model.addAttribute("users", userList);
+
         return "admin/tables";
     }
 
