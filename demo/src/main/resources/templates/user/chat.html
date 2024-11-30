@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat Room</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <div id="messages"></div>
+
+    <input type="text" id="messageInput" placeholder="Type your message here..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        let stompClient = null;
+
+        function connect() {
+            const socket = new SockJS('/ws');
+            stompClient = Stomp.over(socket);
+            const jwtToken = /*[[${jwtToken}]]*/ ''; // Thymeleaf에서 전달받은 JWT 토큰
+
+            stompClient.connect({ Authorization: jwtToken }, function (frame) {
+                console.log('Connected: ' + frame);
+
+                stompClient.subscribe('/topic/messages', function (message) {
+                    const chatMessage = JSON.parse(message.body);
+                    const messageDiv = document.getElementById("messages");
+                    messageDiv.innerHTML += `<p><strong>${chatMessage.sender}:</strong> ${chatMessage.content}</p>`;
+                });
+            });
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById("messageInput");
+            const messageContent = messageInput.value;
+
+            if (stompClient && messageContent) {
+                stompClient.send("/app/chat", {}, JSON.stringify({
+                    sender: "User",
+                    content: messageContent
+                }));
+                messageInput.value = '';
+            }
+        }
+
+        connect();
+    </script>
+</body>
+</html>

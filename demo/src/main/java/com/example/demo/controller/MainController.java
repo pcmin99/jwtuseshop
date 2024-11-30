@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -106,6 +107,13 @@ public class MainController {
     public String blogDetails(){
 
         return "user/blog-details";
+    }
+
+
+    @GetMapping("/user/chat")
+    public String chat(Model model) {
+        model.addAttribute("jwtToken", "Bearer your-jwt-token"); // 클라이언트용 JWT 토큰 제공
+        return "user/chat";
     }
 
 

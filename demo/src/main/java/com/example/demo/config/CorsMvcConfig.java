@@ -28,4 +28,6 @@ public class CorsMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/assets/")  // 리소스가 위치한 경로
                 .setCachePeriod(3600);
     }
+
+    
 }
