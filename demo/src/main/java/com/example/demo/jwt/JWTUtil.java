@@ -7,6 +7,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
@@ -23,6 +24,10 @@ public class JWTUtil {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
     }
 
+    public String extracetJwt(final StompHeaderAccessor accessor){
+        return accessor.getFirstNativeHeader("Authorization");
+    }
+
     //JWt에서 'username' 클레임을 추출하는 메서드
     public String getUsername(String token) {
         return Jwts.parser()
@@ -31,6 +36,8 @@ public class JWTUtil {
                 .getBody()              // 페이로드 클레임을 추출
                 .get("username", String.class); // username 클레임 추출
     }
+
+    
 
     public String getRole(String token) {
         return Jwts.parser()
@@ -62,5 +69,9 @@ public class JWTUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs)) // 만료 시간 설정
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact(); // JWT 토큰 생성
+    }
+
+    public boolean validateToken(String token) {
+        throw new UnsupportedOperationException("Unimplemented method 'validateToken'");
     }
 }
