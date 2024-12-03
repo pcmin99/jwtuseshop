@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.entity.Categories;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.CustomUserDetailsService;
 
 @Controller
@@ -24,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private CategoryService categoryService ; 
     
 
     @GetMapping("/admin")
@@ -46,6 +51,11 @@ public class AdminController {
     public String tabledashboard(Model model){
         List<UserEntity> userList = customUserDetailsService.getAllUsers();
         model.addAttribute("users", userList);
+
+        List<Categories> categoryList = categoryService.getAllCategories();
+        model.addAttribute("categoryLists", categoryList);
+
+        
 
         return "admin/tables";
     }

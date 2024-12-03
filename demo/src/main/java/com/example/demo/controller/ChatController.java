@@ -9,10 +9,10 @@ import com.example.demo.entity.ChatMessage;
 @Controller
 public class ChatController {
 
-    @MessageMapping("/user/chat")
-    @SendTo("/topic/messages")
-    public ChatMessage sendMessage(ChatMessage message) {
-        message.setTimestamp(String.valueOf(System.currentTimeMillis()));
-        return message;
-    }
+    // @MessageMapping("/user/chat")
+    // @SendTo("/topic/messages")
+    // public ChatMessage sendMessage(ChatMessage message) {
+    //     message.setTimestamp(String.valueOf(System.currentTimeMillis()));
+    //     return message;
+    // }
 }

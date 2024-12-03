@@ -70,8 +70,4 @@ public class JWTUtil {
                 .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact(); // JWT 토큰 생성
     }
-
-    public boolean validateToken(String token) {
-        throw new UnsupportedOperationException("Unimplemented method 'validateToken'");
-    }
 }
