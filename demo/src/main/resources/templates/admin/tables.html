@@ -249,7 +249,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">카테고리</h6>
+                <h6 class="text-white text-capitalize ps-3">제품</h6>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -257,20 +257,20 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <table class="table align-items-center justify-content-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">카테고리 명</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">제품 명</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">제품 갯수</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody>
 
-                    <tr th:each="categoryLists : ${categoryLists}">
+                    <tr th:each="productList : ${productLists}">
                       <td>
                         <div class="d-flex px-2">
                           <div class="my-auto">
-                            <h6 class="mb-0 text-sm"  th:text="${categoryLists.categoryname}"></h6>
+                            <h6 class="mb-0 text-sm" th:text="${productList.name}" ></h6>
                           </div>
-                        </div>
+                        </div>  
                       </td>
                       <td>
                         <p class="text-sm font-weight-bold mb-0">$2,500</p>

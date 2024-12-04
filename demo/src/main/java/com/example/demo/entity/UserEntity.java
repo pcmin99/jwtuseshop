@@ -26,6 +26,8 @@ public class UserEntity {
 
     private String role ; 
 
+    private String status ; 
+
     @Column(updatable = false) 
     @CreationTimestamp
     private LocalDateTime  joindate ;
