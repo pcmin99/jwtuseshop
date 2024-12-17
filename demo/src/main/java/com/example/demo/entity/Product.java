@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,13 +26,15 @@ public class Product {
 
     private String name ;
     private String description ;
-    private String price ;
+    private int price ;
 
     private int count ;
     private String imageurl ; // ?
 
-
-    private String createdday ;
+    @Column(updatable = false)
+    @CreationTimestamp
+    private String createdday ; // 제품 인서트시 그시작 바로 저장
+    
     private String updateday ;
 
 
